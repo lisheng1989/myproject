@@ -38,14 +38,14 @@ public class SessionHandler extends IoHandlerAdapter {
 		if(session.containsAttribute("userId") == false)
 			return;
 		long userId = (Long) session.getAttribute("userId");
-		UserDB uDB = userHandler.getUserDBByUserid(userId);
-		if(uDB != null)
-		{
-			
-			uDB.isOnline = 0;
-			uDB._session = null;
-			userHandler.boradLink(uDB);	
-		}
+//		UserDB uDB = userHandler.getUserDBByUserid(userId);
+//		if(uDB != null)
+//		{
+//			
+//			uDB.isOnline = 0;
+//			uDB._session = null;
+//			userHandler.boradLink(uDB);	
+//		}
 		
 	}
 	
@@ -63,30 +63,8 @@ public class SessionHandler extends IoHandlerAdapter {
 		logger.info("[messageReceived]收到消息:"+jS.toString());
 		if(mT == MethodType.CLIENT_LOGIN)
 		{
-			long userid = jS.getJSONObject("p").getLong("userId");
-			userHandler.createUserData(userid,session);
-			
-		}else {
-			if(session.containsAttribute("userId"))
-			{
-				long userId = (Long) session.getAttribute("userId");
-				UserDB uDB = userHandler.getUserDBByUserid(userId);
-				switch (mT) {
-				case MethodType.CLIENT_CHAT : // 如果是用户型终端
-					userHandler.chat(jS,uDB);	
-					break;
-				case MethodType.CLIENT_GETLIST : // 如果是设备型终端
-					userHandler.getList(jS,uDB);
-					break;
-				default : // 其他类型终端
-					logger.warn("[ process ] : 连接 " + session.getId() +mT+ " 未标记任何终端属性");
-
-				}
-
-			}else{
-				logger.warn("[ process ] : 连接 " + session.getId() + " 未建立");
-
-			}
+			String account = jS.getJSONObject("p").getString("account");
+			userHandler.createUserData(account,session);
 			
 		}
 

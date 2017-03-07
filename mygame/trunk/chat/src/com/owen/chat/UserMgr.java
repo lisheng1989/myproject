@@ -237,6 +237,11 @@ public class UserMgr {
 					uDB._session.write(jS);
 				}
 				return true;
+			}else if(method == HttpMethod.getOnline)
+			{
+				JSONObject obj = new JSONObject();
+				obj.put("number", getOnlineSize());
+				
 			}
 			
 		} catch (JSONException e) {
@@ -247,6 +252,21 @@ public class UserMgr {
 		
 	}
 	
+	
+	private  int getOnlineSize(){
+		int size = 0;
+		Iterator<Entry<String, UserDB>> it = userList.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<String, UserDB> entry = it.next();
+			UserDB uDB = entry.getValue();
+			if(uDB._session != null && uDB._session.isConnected())
+			{
+				size++;
+			}
+		}
+		return size;
+	}
 	
 	private void broad(JSONObject obj)
 	{

@@ -11,6 +11,8 @@ public class HttpMethod {
 	public static int sendTiKuan = 4;
 
 	public static int sendHongBao = 5;
+	
+	public static int getOnline = 1001;
 
 
 }

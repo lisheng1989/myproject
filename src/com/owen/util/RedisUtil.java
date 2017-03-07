@@ -42,7 +42,10 @@ public class RedisUtil {
 			config.setMaxIdle(MAX_IDLE);
 			config.setMaxWait(MAX_WAIT);
 			config.setTestOnBorrow(TEST_ON_BORROW);
-			jedisPool = new JedisPool(config, ServerConfig.RedisAddress, ServerConfig.RedisPort, TIMEOUT,ServerConfig.RedisPassword);
+			if(ServerConfig.RedisPassword.equals(""))
+				jedisPool = new JedisPool(config, ServerConfig.RedisAddress, ServerConfig.RedisPort, TIMEOUT);
+			else
+				jedisPool = new JedisPool(config, ServerConfig.RedisAddress, ServerConfig.RedisPort, TIMEOUT,ServerConfig.RedisPassword);
 		
 		} catch (Exception e) {
 			e.printStackTrace();

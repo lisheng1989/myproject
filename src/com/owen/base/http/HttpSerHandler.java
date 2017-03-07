@@ -19,6 +19,7 @@ import com.owen.base.http.core.HttpHandler;
 import com.owen.base.http.core.HttpRequestMessage;
 import com.owen.base.http.core.HttpResponseMessage;
 import com.owen.chat.UserMgr;
+import com.owen.conf.HttpMethod;
 
 
 
@@ -84,12 +85,21 @@ public class HttpSerHandler  extends IoHandlerAdapter{
 					response.setResponseCode(HttpResponseMessage.HTTP_STATUS_SUCCESS);
 					if(jS.has("m"))
 					{
-						if(UserMgr.getInstance().handerMsg(jS))
+						int method = jS.getInt("m");
+						if(method == HttpMethod.getOnline)
 						{
-							response.appendBody("true");
+							JSONObject obj = new JSONObject();
+							obj.put("number", UserMgr.getInstance().getOnlineSize());
+							response.appendBody(obj.toString());
 						}else{
-							response.appendBody("false");							
-						};
+							if(UserMgr.getInstance().handerMsg(jS))
+							{
+								response.appendBody("true");
+							}else{
+								response.appendBody("false");							
+							};	
+						}
+						
 					}else{
 						logger.info("[ messageReceived ] : 接收到错误消息"+str);	
 						response.appendBody("false");

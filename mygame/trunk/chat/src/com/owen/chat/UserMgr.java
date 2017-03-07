@@ -210,13 +210,16 @@ public class UserMgr {
 	}
 
 	private UserDB getUserDBByRedis(String account) {
-		if(RedisUtil.getKeyString("account") != null)
+		if(RedisUtil.getKeyString(account) != null)
 		{
 			UserDB db = new UserDB(0, account, 0);
 			userList.put(db.name,db);
 			return db;
 		}else{
-			return null;
+			UserDB db = new UserDB(0, account, 0);
+			userList.put(db.name,db);
+			return db;
+
 		}
 		
 	}
@@ -237,11 +240,6 @@ public class UserMgr {
 					uDB._session.write(jS);
 				}
 				return true;
-			}else if(method == HttpMethod.getOnline)
-			{
-				JSONObject obj = new JSONObject();
-				obj.put("number", getOnlineSize());
-				
 			}
 			
 		} catch (JSONException e) {
@@ -253,7 +251,7 @@ public class UserMgr {
 	}
 	
 	
-	private  int getOnlineSize(){
+	public  int getOnlineSize(){
 		int size = 0;
 		Iterator<Entry<String, UserDB>> it = userList.entrySet().iterator();
 		while(it.hasNext())

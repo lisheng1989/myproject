@@ -45,7 +45,7 @@ public class ChatServer {
 		ep.setAliveInterval(30);
 		ep.setAliveTimeout(300);
 		ep.setHandler(new SessionHandler());
-		ep.setPassiveMode(false); 
+		ep.setPassiveMode(true); 
 		new ExAcceptorContainer(ep); 
 		
 		logger.info("聊天服务启动绑定端口"+ServerConfig.Port);

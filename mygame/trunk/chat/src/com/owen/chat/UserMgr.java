@@ -203,7 +203,7 @@ public class UserMgr {
 			JSONObject data = new JSONObject();
 			jS.put("p", data);
 			uDB._session.write(jS);
-			logger.info("[createUserData]创建用户"+uDB.userid+"-"+uDB.name);
+			logger.info("[createUserData]创建用户"+uDB.name);
 		}
 		return uDB;
 		
@@ -231,13 +231,14 @@ public class UserMgr {
 			{
 				broad(jS);	
 				return true;
-			}else if(method == HttpMethod.sendChongZhi || method == HttpMethod.sendTiKuan || method == HttpMethod.sendChongZhi)
+			}else if(method == HttpMethod.sendChongZhi || method == HttpMethod.sendTiKuan || method == HttpMethod.sendWin)
 			{
 				String account = jS.getJSONObject("p").getString("account");
 				UserDB uDB = getUserDB(account);
 				if(uDB != null)
 				{
 					uDB._session.write(jS);
+					logger.info("[handerMsg]发送消息"+jS.toString());
 				}
 				return true;
 			}
@@ -258,10 +259,15 @@ public class UserMgr {
 		{
 			Entry<String, UserDB> entry = it.next();
 			UserDB uDB = entry.getValue();
-			if(uDB._session != null && uDB._session.isConnected())
+//			if(uDB._session != null && uDB._session.isConnected())
+//			{
+//				size++;
+//			}
+			if(uDB.isOnline == 1)
 			{
 				size++;
 			}
+			
 		}
 		return size;
 	}

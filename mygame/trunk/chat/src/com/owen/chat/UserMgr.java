@@ -259,14 +259,14 @@ public class UserMgr {
 		{
 			Entry<String, UserDB> entry = it.next();
 			UserDB uDB = entry.getValue();
-//			if(uDB._session != null && uDB._session.isConnected())
-//			{
-//				size++;
-//			}
-			if(uDB.isOnline == 1)
+			if(uDB._session != null && uDB._session.isConnected())
 			{
 				size++;
 			}
+//			if(uDB.isOnline == 1)
+//			{
+//				size++;
+//			}
 			
 		}
 		return size;

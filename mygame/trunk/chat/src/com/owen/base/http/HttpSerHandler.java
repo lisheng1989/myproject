@@ -46,7 +46,7 @@ public class HttpSerHandler  extends IoHandlerAdapter{
 	 */
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
-		logger.info("[ sessionOpened ] : 连接 " + session.getId() + " 准备创建");
+		//logger.info("[ sessionOpened ] : 连接 " + session.getId() + " 准备创建");
 		// set idle time to 60 seconds
 		session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60);
 	}
@@ -56,7 +56,7 @@ public class HttpSerHandler  extends IoHandlerAdapter{
 	 */
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
-		logger.info("[ sessionOpened ] : 连接 " + session.getId() + " 准备关闭");
+	//	logger.info("[ sessionOpened ] : 连接 " + session.getId() + " 准备关闭");
 	}
 	
 	/** 收到信息的动作

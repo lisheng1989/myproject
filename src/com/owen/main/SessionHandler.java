@@ -34,7 +34,7 @@ public class SessionHandler extends IoHandlerAdapter {
 	 */
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
-		logger.info("[ sessionOpened ] : 连接 " + session.getId() + " 准备关闭");
+		//logger.info("[ sessionOpened ] : 连接 " + session.getId() + " 准备关闭");
 		if(session.containsAttribute("userId") == false)
 			return;
 		long userId = (Long) session.getAttribute("userId");
